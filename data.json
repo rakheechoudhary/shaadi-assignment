@@ -1,0 +1,18 @@
+{
+ "userlogins": [
+    {  
+       "url":"https://www.marathishaadi.com",
+       "motherTongue": "Marathi",
+       "username": "hellotoyou@gmail.com",
+       "password": "1234"
+       },
+       {
+       "url":"https://www.gujaratishaadi.com",
+       "motherTongue": "Gujarati",
+       "username": "hello@gmail.com",
+       "password": "12345"
+       }
+       
+       
+]
+}
