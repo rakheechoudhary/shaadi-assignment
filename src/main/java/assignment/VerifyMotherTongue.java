@@ -14,6 +14,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -41,7 +43,7 @@ public class VerifyMotherTongue {
 		driver.close();
 	}
 	@Test(dataProvider="dataProvider")
-	void login(String[] data)
+	void login(String[] data) throws InterruptedException
 	{
 		
 		String username = data[0];
@@ -58,14 +60,17 @@ public class VerifyMotherTongue {
 		driver.manage().timeouts().implicitlyWait(10,TimeUnit.MILLISECONDS);
 		passwordelement.sendKeys(password);
 		
+		
 		WebElement element = driver.findElement(By.className("Dropdown-placeholder")); 
-		driver.manage().timeouts().implicitlyWait(10,TimeUnit.MILLISECONDS);
 		element.click();
 		Actions action = new Actions(driver);
 		action.moveToElement(element).moveToElement(driver.findElement(By.xpath("//div[contains(text(),'Brother')]"))).click().build().perform();
 		driver.findElement(By.xpath("//button[@class='btn btn-primary btn-md btn-block']")).click();
 		
 		driver.manage().timeouts().implicitlyWait(10,TimeUnit.MILLISECONDS);
+		WebDriverWait wait2 = new WebDriverWait(driver,10);
+		wait2.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html[1]/body[1]/div[2]/div[1]/div[7]/form[1]/div[5]/div[1]/div[1]/div[1]/div[1]")));
+		
 		WebElement element1 = driver.findElement(By.xpath("/html[1]/body[1]/div[2]/div[1]/div[7]/form[1]/div[5]/div[1]/div[1]/div[1]/div[1]"));
 		
 		driver.manage().timeouts().implicitlyWait(10,TimeUnit.MILLISECONDS);
@@ -73,6 +78,7 @@ public class VerifyMotherTongue {
 		String actual_defaultlanguage = element1.getText();
 		String expexcted_defaultlanguage = motherTongue;
 		Assert.assertEquals(expexcted_defaultlanguage,actual_defaultlanguage);
+		
 	}
 	@DataProvider(name="dataProvider")
 	public String[][] readJson() throws IOException, ParseException
